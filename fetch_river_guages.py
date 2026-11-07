@@ -52,7 +52,8 @@ def main(args):
             location_name, limit=[(item["label"],item["limit"]) for item in config_data if item.get("station_id") == station_id ][0]
             value = float(latest_obs.get("value"))
             unit = latest_obs.get("unit_of_measure")
-            timestamp=datetime.fromisoformat(latest_obs.get("time")).astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')
+            #timestamp=datetime.fromisoformat(latest_obs.get("time")).astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')
+            timestamp=datetime.strptime(latest_obs.get("time"), "%Y-%m-%dT%H:%M:%S+00:00").astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')
 
             if value >= limit or args.test:
                 print(f"Station: {location_name}",file=output_buffer)
